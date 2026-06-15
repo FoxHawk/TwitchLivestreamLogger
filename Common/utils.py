@@ -40,12 +40,12 @@ def do_twitch_api_get(url: str, expected_status: int = 200):
 def do_twitch_api_post(url: str, data, expected_status: int = 200):
     headers = _get_headers()
 
-    response = requests.post(url, headers=headers, data=data)
+    response = requests.post(url, headers=headers, json=data)
 
     if response.status_code != expected_status:
-            logger.error(f"Error doing get request to '{url}'. {response.status_code} - {response.reason}")
+            logger.error(f"Error doing post request to '{url}'. {response.status_code} - {response.reason}")
             logger.error(response.json())
-            raise Exception(f"Error doing get request to '{url}'. {response.status_code} - {response.reason}")
+            raise Exception(f"Error doing post request to '{url}'. {response.status_code} - {response.reason}")
 
     return response.json()
 
@@ -74,6 +74,7 @@ def unsubscribe_from_channel(channel: Channel):
 
     for event_id in event_ids:
         try:
+            logger.debug(f"Unsubscribing from event {event_id} for channel {channel.username}")
             do_twitch_api_delete(f"https://api.twitch.tv/helix/eventsub/subscriptions?id={event_id}")
         except Exception as e:
             logger.warning(f"Failed to unsubscribe from event {event_id} for channel {channel.username}: {str(e)}. Continuing...")
@@ -83,7 +84,7 @@ def subscribe_to_channel(channel: Channel):
             "type": "",
             "version": "1",
             "condition": {
-                "user_id": channel.user_id
+                "broadcaster_user_id": channel.user_id
             },
             "transport": {
                 "method": "webhook",
@@ -101,6 +102,7 @@ def subscribe_to_channel(channel: Channel):
         try:
             for type, field in event_mapping.items():
                 body["type"] = type
+                logger.debug(f"Subscribing to event {type} for channel {channel.username}")
                 data = do_twitch_api_post("https://api.twitch.tv/helix/eventsub/subscriptions", body, 202)
 
                 if data.get("data") and len(data["data"]) > 0:

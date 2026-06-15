@@ -160,6 +160,11 @@ LOGGING = {
 			'handlers': ['console', 'file'],
 			'level': 'DEBUG',
 			'propagate': False
-        }
+        },
+		'Common': {
+			'handlers': ['console', 'file'],
+			'level': 'DEBUG',
+			'propagate': False
+        },
     },
 }

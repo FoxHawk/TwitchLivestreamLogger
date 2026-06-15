@@ -1,0 +1,38 @@
+.content {
+    padding: 10px;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+nav {
+    height: 40px;
+    padding: 10px 200px;
+    background-color: lightgray;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+}
+
+.add-stream-content {
+    margin: auto;
+    max-width: 500px;
+}
+
+
+.add-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-form button {
+    margin-top: 10px;
+}

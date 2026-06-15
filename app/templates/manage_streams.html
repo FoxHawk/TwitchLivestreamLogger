@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}Add New Stream{% endblock %}
+
+{% block content %}
+
+<div class="container text-center">
+    <h3>Add Channel</h3>
+</div>
+
+<div class="add-stream-content">
+    <form class="add-form" method="post">
+        {% csrf_token %}
+        <label class="form-label" for="channel">Channel Name</label>
+        <input class="form-control" id="channel" name="channel" type="text" placeholder="Channel Name" />
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>
+
+<div class="container text-center mt-3">
+    <h3>Subscribed channels</h3>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Channel</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for channel in channels %}
+        <tr>
+            <td>{{ channel }}</td>
+            <td>
+                <form method="post" action="/delete">
+                    <input type="hidden" name="channel" value="{{ channel }}" />
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                    {% csrf_token %}
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

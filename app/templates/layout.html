@@ -1,0 +1,24 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/add">Manage Streams</a>
+    </nav>
+    {% block content %}{% endblock %}
+</body>
+
+</html>

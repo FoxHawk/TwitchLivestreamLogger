@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}Livestreams{% endblock %}
+
+{% block content %}
+{% if latest_streams %}
+<!-- <ul>
+    {% for stream in latest_streams %}
+    <li>{{ stream.user_id.username }} - {{ stream.title }}: {{ stream.started }} / {{ stream.ended }}</li>
+    {% endfor %}
+</ul> -->
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Stream Title</th>
+            <th scope="col">Started</th>
+            <th scope="col">Ended</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for stream in latest_streams %}
+        <tr>
+            <td>{{ stream.channel.username }}</td>
+            <td>{{ stream.title }}</td>
+            <td>{{ stream.started }}</td>
+            <td>{{ stream.ended }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No streams</p>
+{% endif %}
+{% endblock %}
